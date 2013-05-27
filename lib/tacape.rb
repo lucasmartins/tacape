@@ -25,6 +25,7 @@ module Tacape
 
   autoload :Cli,        "tacape/cli"
   autoload :Belt,        "tacape/belt"
+  autoload :Version,        "tacape/version"
 
   def self.config(root_dir = nil)
     root_dir ||= Pathname.new(Dir.pwd)

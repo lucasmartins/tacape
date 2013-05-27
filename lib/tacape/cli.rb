@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 module Tacape
+  autoload :Sample, "tools/sample"
+  
   class Cli < Thor
-    autoload :Sample, "tools/sample"
-
+    
     def self.exit_on_failure?
       true
     end
@@ -13,9 +14,9 @@ module Tacape
       say "Tacape version #{Version::STRING}"
     end
 
-    desc "sample", "Sample test"
+    desc "test", "Sample test"
     def test
-      subcommand "test", Sample
+      subcommand "test", Tools::Sample
     end
 
     desc "check", "Checks for system dependencies"
