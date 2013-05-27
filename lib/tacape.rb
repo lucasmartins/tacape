@@ -9,6 +9,8 @@ require "thor"
 require "thor/group"
 require "yaml"
 require "os"
+require 'pry'
+require 'pry-nav'
 
 Encoding.default_internal = "utf-8"
 Encoding.default_external = "utf-8"
@@ -23,9 +25,10 @@ end
 module Tacape
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
 
-  autoload :Cli,        "tacape/cli"
-  autoload :Belt,        "tacape/belt"
-  autoload :Version,        "tacape/version"
+  autoload :Cli,      "tacape/cli"
+  autoload :Belt,     "tacape/belt"
+  autoload :Version,  "tacape/version"
+  #autoload :ToolSample, "tacape/tools/sample"
 
   def self.config(root_dir = nil)
     root_dir ||= Pathname.new(Dir.pwd)

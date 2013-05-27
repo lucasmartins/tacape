@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 module Tacape
-  autoload :Sample, "tools/sample"
-  
+  load "tacape/tools/dns.rb"
+  load "tacape/tools/helpers/json_config.rb"
+
   class Cli < Thor
     
     def self.exit_on_failure?
@@ -12,11 +13,6 @@ module Tacape
     map %w(-v --version) => :version
     def version
       say "Tacape version #{Version::STRING}"
-    end
-
-    desc "test", "Sample test"
-    def test
-      subcommand "test", Tools::Sample
     end
 
     desc "check", "Checks for system dependencies"
