@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 module Tacape
-  load "tacape/tools/dns.rb"
   load "tacape/tools/helpers/json_config.rb"
-
+  load "tacape/tools/dns.rb"
+  
   class Cli < Thor
     
     def self.exit_on_failure?
@@ -24,8 +24,7 @@ module Tacape
       say "FFMPEG #{ffmpeg}"
     end
 
-    private
-    
+    private    
     def config
       YAML.load_file(config_path).with_indifferent_access
     end

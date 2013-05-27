@@ -9,7 +9,12 @@ module Tacape
       {mac: [osx: Osx], linux: [fedora: Fedora]}
     end
 
-    def self.current_os_class
+    def self.current_os
+      get_current_os_class
+    end
+
+    private
+    def get_current_os_class
       current_os=:unknown
       current_os=Tacape::Belt.os_families[:mac][:osx] if OS.osx?
       current_os=Tacape::Belt.os_families[:msoft][:windows] if OS.windows?

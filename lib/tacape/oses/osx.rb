@@ -8,7 +8,7 @@ module Tacape
       end
 
       def self.config_folder
-        return '~/.config/tacape'
+        return "#{ENV['HOME']}/.config/tacape"
       end
 
       def self.identify
