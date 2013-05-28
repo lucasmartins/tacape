@@ -7,6 +7,11 @@ module Tacape
         @config_folder = Tacape::Fedora.config_folder
       end
 
+      def self.locale
+        puts 'Retrieving locale thorugh LANG environment variable...'
+        return ENV['LANG'].split('.').first
+      end
+
       def self.config_folder
         return "#{ENV['HOME']}/.config/tacape"
       end

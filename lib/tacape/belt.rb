@@ -1,6 +1,7 @@
 module Tacape
   load "tacape/oses/osx.rb"
   load "tacape/oses/fedora.rb"
+  load "tacape/oses/os_exceptions.rb"
 
   class Belt
     def self.os_families

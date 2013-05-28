@@ -7,5 +7,4 @@ module Tacape
 
   class UnsupportedOS < StandardError
   end
-
 end

@@ -1,14 +1,15 @@
-require "active_support/all"
-require "digest/md5"
-require "erb"
-require "logger"
-require "notifier"
-require "tempfile"
-require "pathname"
-require "thor"
-require "thor/group"
-require "yaml"
-require "os"
+require 'active_support/all'
+require 'digest/md5'
+require 'erb'
+require 'logger'
+require 'notifier'
+require 'tempfile'
+require 'pathname'
+require 'thor'
+require 'thor/group'
+require 'yaml'
+require 'os'
+require 'i18n'
 require 'pry'
 require 'pry-nav'
 
@@ -26,7 +27,7 @@ module Tacape
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
 
   autoload :Cli,      "tacape/cli"
-  autoload :Belt,     "tacape/belt"
+  load "tacape/belt.rb"
   autoload :Version,  "tacape/version"
 
   def self.config(root_dir = nil)
@@ -38,6 +39,21 @@ module Tacape
     erb = ERB.new(content).result
     YAML.load(erb).with_indifferent_access
   end
+
+  def self.locale
+    I18n.load_path = Dir['config/locales/*.yml']
+    I18n.backend.load_translations
+    
+    @locale ||= Belt.current_os.locale
+    case @locale
+    when 'pt_BR'
+      I18n.locale = :"pt-BR"
+    else
+      I18n.locale = :en
+    end
+    return @locale
+  end
+  Tacape.locale
 
   def self.logger
     @logger ||= Logger.new(File.open("/tmp/tacape.log", "a"))

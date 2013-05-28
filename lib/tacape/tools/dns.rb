@@ -13,9 +13,9 @@ module Tacape
       
       def initialize(*args)
         super
-        @os_support=[Tacape::Os::Fedora]
+        @os_support=[Tacape::Os::Fedora,Tacape::Os::Osx]
         check_os_support
-        @config_file="#{current_os.config_folder}/dns.json"
+        @config_file="#{@current_os.config_folder}/dns.json"
         @config_template={
           'default_names_file'=>"#{ENV['HOME']}/names.txt",
           'default_output_file'=>"#{ENV['HOME']}/output.txt",
@@ -23,7 +23,7 @@ module Tacape
         }
       end
 
-      desc 'check_names NAMES_FILE OUTPUT_FILE','Checks a list of names for availability through DNS Lookup'
+      desc 'check_names NAMES_FILE OUTPUT_FILE',I18n.t('tools.dns.check_names.desc')
       def check_names(names_file=nil,output_file=nil)
         load_config
         names_file=@config['default_names_file'] if names_file==nil

@@ -6,6 +6,11 @@ module Tacape
   
   class Cli < Thor
     
+    def initialize(*args)
+      super
+      puts I18n.t('greeting')
+    end
+
     def self.exit_on_failure?
       true
     end
