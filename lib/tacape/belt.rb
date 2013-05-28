@@ -1,23 +1,18 @@
 module Tacape
-  autoload :Os, "oses/os"
-  autoload :Osx, "oses/osx"
-  autoload :Fedora, "oses/fedora"
+  load "tacape/oses/osx.rb"
+  load "tacape/oses/fedora.rb"
 
   class Belt
     def self.os_families
       #msoft: [windows: Windows]
-      {mac: [osx: Osx], linux: [fedora: Fedora]}
+      {:mac=> {:osx=>Tacape::Os::Osx}, :linux=> {:fedora=>Tacape::Os::Fedora}}
     end
 
+    #Returns the current OS class
     def self.current_os
-      get_current_os_class
-    end
-
-    private
-    def get_current_os_class
       current_os=:unknown
-      current_os=Tacape::Belt.os_families[:mac][:osx] if OS.osx?
-      current_os=Tacape::Belt.os_families[:msoft][:windows] if OS.windows?
+      current_os=self.os_families[:mac][:osx] if OS.osx?
+      current_os=self.os_families[:msoft][:windows] if OS.windows?
       if OS.linux?
         Belt.os_families[:linux].each do |k,v|
           current_os=v.identify if v.identify!=nil

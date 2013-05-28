@@ -5,25 +5,74 @@ module Tacape
   module Tools
     class Dns < Thor
       include Tacape::Tools::Helpers::JsonConfig
+      include Tacape::Tools::Helpers::OsSupport
       namespace 'dns'
 
-      CONFIG_FILE="#{Tacape::Belt.current_os.config_folder}/dns.json"
       C_MARK='✓'
       X_MARK='✘'
       
       def initialize(*args)
         super
-        @config={
+        @os_support=[Tacape::Os::Fedora]
+        check_os_support
+        @config_file="#{current_os.config_folder}/dns.json"
+        @config_template={
           'default_names_file'=>"#{ENV['HOME']}/names.txt",
           'default_output_file'=>"#{ENV['HOME']}/output.txt",
           'default_suffixes'=>['.com','.io']
         }
       end
 
-      desc 'check_names','This is just a sample'
-      def test
+      desc 'check_names NAMES_FILE OUTPUT_FILE','Checks a list of names for availability through DNS Lookup'
+      def check_names(names_file=nil,output_file=nil)
         load_config
-        puts "Implement your tool like this, pay attention to the namespace so it doesn't clash with other tools."
+        names_file=@config['default_names_file'] if names_file==nil
+        output_file=@config['default_output_file'] if output_file==nil
+        suffixes=@config['default_suffixes']
+
+        file = File.read(names_file)
+        names = file.split("\n")
+        clear_names = []
+        names.each do |n|
+          clear_names.push(n.gsub("\r",'').gsub(' ',''))
+        end
+        names = clear_names
+        puts names.inspect
+        `rm #{output_file}`
+        output = File.new(output_file,'w')
+
+        names.each do |n|
+          if n!=nil && n!=''
+            #puts n.inspect
+            all_available=true
+            print_string = "#{n.upcase} \t -> "
+            suffixes.each do |s|
+              fiber_result=Fiber.new do
+                lookup_result = `nslookup #{n.downcase}#{s}`.split("\n").last
+                Fiber.yield lookup_result
+              end
+              result=fiber_result.resume
+              if result.include? 'NXDOMAIN'
+                print_string+="[#{s}:#{C_MARK}] "
+              else
+                print_string+="[#{s}:#{X_MARK}] "
+                all_available=false
+              end
+            end
+            if all_available
+              overall=C_MARK
+            else
+              overall=X_MARK
+            end
+            output_string = "#{overall} : #{print_string}"
+            puts output_string
+            output.puts output_string 
+          else
+            puts "Ignoring blank line..."
+          end
+        end
+
+        output.close
       end
 
     end

@@ -4,24 +4,39 @@ module Tacape
       module JsonConfig
         module InstanceMethods
           def setup
-            @config.each do |k,v|
-              input = ask "#{k} [default=#{@config[k]}]:"
+            @config={}
+            @config_template.each do |k,v|
+              tip='use comma, no spaces' if v.class==Array
+              input = ask "#{k} [default=#{@config_template[k]}] #{tip}:"
+
               unless input.empty?
-                @config[k]=input
-              end
-              if k.include? 'folder'
-                `mkdir -p #{@config[k]}`    
+                case v
+                when String
+                  @config[k]=input
+                when Array
+                  @config[k]=input.split(',')
+                else
+                  puts "Bailed on #{v.class}"
+                end
+                if k.include?('folder') || k.include?('file')
+                  if File.dirname(@config[k]) == '.'
+                    @config[k]="#{ENV['HOME']}/#{@config[k]}"  
+                  end
+                  unless File.exist?(File.dirname(@config[k]))
+                    FileUtils.mkdir_p(File.dirname(@config[k]))  
+                  end
+                end
+              else
+                @config[k]=@config_template[k]  
               end
             end
-
-            @config['targets']=[{'name'=>'Rubies','address'=>'192.168.2.202'}]
 
             save_config
           end
 
           def load_config
-            if File.exist? CONFIG_FILE
-              @config = JSON.parse(File.read(CONFIG_FILE))
+            if File.exist? @config_file
+              @config = JSON.parse(File.read(@config_file))
               unless @config.class==Hash
                 raise 'Corrupt JSON file!'
               end
@@ -32,7 +47,11 @@ module Tacape
           end
 
           def save_config
-            File.open(CONFIG_FILE, 'w') {|f| f.write(@config.to_json) }
+            unless File.exist? File.dirname(@config_file)
+              FileUtils.mkdir_p(File.dirname(@config_file))
+            end
+            
+            File.open(@config_file, 'w') {|f| f.write(@config.to_json) }
           end
         end
         

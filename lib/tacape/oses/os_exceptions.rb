@@ -5,4 +5,7 @@ module Tacape
   class OSLayerNotImplemented < StandardError
   end
 
+  class UnsupportedOS < StandardError
+  end
+
 end
