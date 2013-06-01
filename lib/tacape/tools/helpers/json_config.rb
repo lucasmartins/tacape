@@ -6,8 +6,14 @@ module Tacape
           def setup
             @config={}
             @config_template.each do |k,v|
-              tip='use comma, no spaces' if v.class==Array
-              input = ask "#{k} [default=#{@config_template[k]}] #{tip}:"
+              tip=' use comma, no spaces' if v.class==Array
+              if @config_template[k]!=nil && @config_template[k]!=''
+                question = "#{k} [default=#{@config_template[k]}]#{tip}:"
+              else
+                question = "#{k}#{tip}:"
+              end
+
+              input = ask(question)
 
               unless input.empty?
                 case v
