@@ -17,7 +17,8 @@ module Tacape
       end
 
       def self.identify
-        if issue_info.include? 'Fedora'
+        if self.issue_info.include? 'Fedora'
+          puts "Creating folder structure for Fedora"
           return Tacape::Belt.os_families[:linux][:fedora]
         else
           return nil
@@ -33,11 +34,11 @@ module Tacape
       end
 
       protected
-        def issue_info
+        def self.issue_info
           id_file='/etc/issue'
           if File.exists?(id_file)
             return File.read(id_file)
-          end  
+          end
         end
 
     end

@@ -10,11 +10,13 @@ module Tacape
               raise UnsupportedOS, "This Tacape Tool does not support your OS."
             end
           end
+          
         end
         
         def self.included(receiver)
           receiver.send :include, InstanceMethods
         end
+
       end
     end
   end

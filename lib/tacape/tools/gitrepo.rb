@@ -22,18 +22,6 @@ module Tacape
         
       end
 
-      def load_info
-        load_config
-
-        @repos_dir=@config['default_remote_repos_dir']
-        @host=@config['remote_host_address']
-        @host_shortname=@config['remote_host_shortname']
-        @ssh_key = @config['ssh_key']
-        @username = @config['username']
-        @ssh_hostpath = "#{@username}@#{@host}"
-        @ssh_repospath = "#{ssh_hostpath}:#{@repos_dir}"
-      end
-
       desc 'bless',I18n.t('tools.gitrepo.bless.desc')
       def bless(remote_repo_name=nil)
         remote_repo_name = File.basename(Dir.getwd) if remote_repo_name==nil
@@ -55,6 +43,19 @@ module Tacape
         load_info
         `ssh #{@ssh_hostpath} "ls --format single-column #{@repo_dir}"`
       end
+
+      private
+        def load_info
+          load_config
+
+          @repos_dir=@config['default_remote_repos_dir']
+          @host=@config['remote_host_address']
+          @host_shortname=@config['remote_host_shortname']
+          @ssh_key = @config['ssh_key']
+          @username = @config['username']
+          @ssh_hostpath = "#{@username}@#{@host}"
+          @ssh_repospath = "#{ssh_hostpath}:#{@repos_dir}"
+        end
 
     end
   end
