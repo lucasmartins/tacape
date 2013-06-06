@@ -1,18 +1,18 @@
 #coding: utf-8
 module Tacape
   module Tools
-    class GitRepo < Thor
+    class OwnGit < Thor
       include Tacape::Tools::Helpers::JsonConfig
       include Tacape::Tools::Helpers::OsSupport
-      namespace 'gitrepo'
+      namespace 'owngit'
 
       def initialize(*args)
         super
         @os_support=[Tacape::Os::Fedora,Tacape::Os::Osx]
         check_os_support
-        @config_file="#{@current_os.config_folder}/gitrepo.json"
+        @config_file="#{@current_os.config_folder}/owngit.json"
         @config_template={
-          'default_remote_repo_dir'=>"repos",
+          'default_remote_repos_dir'=>"repos",
           'remote_host_address'=>String.new,
           'remote_host_shortname'=>String.new,
           'username'=>ENV['USER'],
@@ -22,20 +22,20 @@ module Tacape
         
       end
 
-      desc 'bless',I18n.t('tools.gitrepo.bless.desc')
-      def bless(remote_repo_name=nil)
+      desc 'add',I18n.t('tools.gitrepo.add.desc')
+      def add(remote_repo_name=nil)
         remote_repo_name = File.basename(Dir.getwd) if remote_repo_name==nil
         load_info
-        @ssh_fullpath = "#{ssh_repospath}/#{remote_repo_name}.git"
+        
+        @git_remote = "#{@ssh_hostpath}:/home/#{@username}/#{@repos_dir}/#{remote_repo_name}.git"
 
         unless File.exists? '.git'
           `git init`
         end
 
-        `git remote add #{@host_shortname} #{@ssh_fullpath}`
+        `git remote add #{@host_shortname} #{@git_remote}`
         puts I18n.t('tools.gitrepo.bless.creating_remote_msg')
-        `ssh #{@ssh_hostpath} "mkdir -p #{@repos_dir} && cd #{@repos_dir} && mkdir #{remote_repo_name}.git && cd #{remote_repo_name}.git && git init --bare" && git push #{@host_shortname} --all`
-       
+        `ssh #{@ssh_hostpath} "cd && mkdir -p #{@repos_dir} && cd #{@repos_dir} && git init #{remote_repo_name}.git --bare"`
       end
 
       desc 'list', I18n.t('tools.gitrepo.list.desc')
@@ -54,7 +54,6 @@ module Tacape
           @ssh_key = @config['ssh_key']
           @username = @config['username']
           @ssh_hostpath = "#{@username}@#{@host}"
-          @ssh_repospath = "#{ssh_hostpath}:#{@repos_dir}"
         end
 
     end
@@ -62,7 +61,7 @@ module Tacape
 
   #Redefining the Cli to use this Tool
   class Cli < Thor
-    desc 'gitrepo','Tacape Tool for managing remote Git repositories through SSH'
-    subcommand 'gitrepo', Tools::GitRepo
+    desc 'owngit','Tacape Tool for managing remote Bare Git repositories through SSH'
+    subcommand 'owngit', Tools::OwnGit
   end
 end
