@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 module Tacape
   load "tacape/tools/helpers/json_config.rb"
-  load "tacape/tools/helpers/os_support.rb"
+  #load "tacape/tools/helpers/os_support.rb"
   load "tacape/tools/dns.rb"
   load "tacape/tools/gitrepo.rb"
   
