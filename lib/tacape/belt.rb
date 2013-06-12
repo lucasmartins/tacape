@@ -9,11 +9,6 @@ module Tacape
       {:mac=> {:osx=>Tacape::Os::Osx}, :linux=> {:fedora=>Tacape::Os::Fedora}}
     end
 
-    def initialize
-      super
-      puts "Initailizing Tool Belt"
-    end
-
     #Returns the current OS class
     def self.current_os
       current_os=:unknown

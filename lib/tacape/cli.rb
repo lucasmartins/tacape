@@ -2,12 +2,14 @@
 module Tacape
   load "tacape/tools/helpers/json_config.rb"
   load "tacape/tools/helpers/os_support.rb"
-
+  
   class Cli < Thor
     
     def initialize(*args)
       super
+      @current_os=Tacape::Belt.current_os
       load_tools
+      create_folder_structure
       puts I18n.t('greeting')
     end
 
@@ -28,6 +30,12 @@ module Tacape
         ffmpeg=''
       end
       say "FFMPEG #{ffmpeg}"
+    end
+
+    desc "update", "Updates the Tools local repository"
+    map %w(-u --update) => :update
+    def update
+      `cd #{@current_os.tool_folder} && git pull`
     end
 
     private    
@@ -52,7 +60,19 @@ module Tacape
     end
 
     def load_tools
-      puts "Loading tools..."
+      Dir["#{@current_os.tool_folder}/**/*.rb"].each do |tool|
+        load tool
+      end
     end
+
+    def create_folder_structure
+      unless File.exists? @current_os.config_folder
+        FileUtils.mkdir_p(@current_os.config_folder)
+      end
+      unless File.exists? @current_os.tool_folder
+        `git clone git@bitbucket.org:lucasmartins/tacape-tools.git #{@current_os.tool_folder}`
+      end
+    end
+
   end
 end

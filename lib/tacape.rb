@@ -27,13 +27,8 @@ module Tacape
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
 
   autoload :Cli,      "tacape/cli"
-  load "tacape/belt.rb"
   autoload :Version,  "tacape/version"
-
-  def initialize(*args)
-    super
-    self.create_folder_structure
-  end
+  load "tacape/belt.rb"
 
   def self.config(root_dir = nil)
     root_dir ||= Pathname.new(Dir.pwd)
@@ -64,10 +59,4 @@ module Tacape
     @logger ||= Logger.new(File.open("/tmp/tacape.log", "a"))
   end
 
-  def self.create_folder_structure
-      unless File.exists? @config_folder
-        FileUtils.mkdir_p("#{@config_folder}/tools")
-        #FileUtils.mkdir_p("#{@config_folder}/plugins")
-      end
-    end
 end
