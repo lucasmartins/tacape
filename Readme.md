@@ -5,7 +5,7 @@ Tacape
 
 This is a work in progrees, I would wait until I have the testing suite implemented to publish this but time is slipping away from me, maybe you can help!
 
-Just fork [Tacape Tools]((https://github.com/lucasmartins/tacape-tools)), add your tool, and make a pull request.
+Just fork [Tacape Tools](https://github.com/lucasmartins/tacape-tools), add your tool, and make a pull request.
 
 You can test your tools locally just throwing them at the `~/.tacape/tools` folder.
 
@@ -46,7 +46,7 @@ Contribute
 
 Have any scripts laying around that you could be sharing? 
 
-Just fork [Tacape Tools]((https://github.com/lucasmartins/tacape-tools)), add your tool, and make a pull request.
+Just fork [Tacape Tools](https://github.com/lucasmartins/tacape-tools), add your tool, and make a pull request.
 
 Support
 =======
