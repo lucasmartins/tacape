@@ -2,13 +2,12 @@
 module Tacape
   load "tacape/tools/helpers/json_config.rb"
   load "tacape/tools/helpers/os_support.rb"
-  load "tacape/tools/dns.rb"
-  load "tacape/tools/owngit.rb"
-  
+
   class Cli < Thor
     
     def initialize(*args)
       super
+      load_tools
       puts I18n.t('greeting')
     end
 
@@ -50,6 +49,10 @@ module Tacape
 
     def color?
       shell.instance_of?(Thor::Shell::Color)
+    end
+
+    def load_tools
+      puts "Loading tools..."
     end
   end
 end

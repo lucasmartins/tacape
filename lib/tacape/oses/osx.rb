@@ -12,7 +12,11 @@ module Tacape
       end
 
       def self.config_folder
-        return "#{ENV['HOME']}/.config/tacape"
+        return "#{ENV['HOME']}/.tacape/config"
+      end
+
+      def self.tool_folder
+        return "#{ENV['HOME']}/.tacape/tools"
       end
 
       def self.identify
