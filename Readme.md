@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/lucasmartins/tacape.png)](https://codeclimate.com/github/lucasmartins/tacape)
+
 Tacape
 ======
 
