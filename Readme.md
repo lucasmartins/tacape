@@ -3,7 +3,7 @@
 Tacape
 ======
 
-This is a _WORK IN PROGRESS_, I would wait until I have the testing suite implemented to publish this but time is slipping away from me, maybe you can help!
+This is a **WORK IN PROGRESS**, I would wait until I have the testing suite implemented to publish this but time is slipping away from me, maybe you can help!
 
 Just fork [Tacape Tools](https://github.com/lucasmartins/tacape-tools), add your tool, and make a pull request.
 
