@@ -17,6 +17,9 @@ Have fun!
 
 This repo is used by [Tacape](https://github.com/lucasmartins/tacape)
 
+## Configuration
+Tacape Tools have configuration files, they are JSON files inside `~/.tacape/config`.
+
 Install
 =======
 
