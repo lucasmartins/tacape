@@ -4,11 +4,13 @@ module Tacape
   load "tacape/tools/helpers/os_support.rb"
   
   class Cli < Thor
-    
+    Dir["#{Tacape::Belt.current_os.tool_folder}/**/*.rb"].each do |tool|
+      load tool
+    end
+
     def initialize(*args)
       super
       @current_os=Tacape::Belt.current_os
-      load_tools
       create_folder_structure
       puts I18n.t('greeting')
     end
@@ -35,7 +37,7 @@ module Tacape
     desc "update", "Updates the Tools local repository"
     map %w(-u --update) => :update
     def update
-      `cd #{@current_os.tool_folder} && git pull`
+      update_tools
     end
 
     private    
@@ -59,10 +61,17 @@ module Tacape
       shell.instance_of?(Thor::Shell::Color)
     end
 
-    def load_tools
-      Dir["#{@current_os.tool_folder}/**/*.rb"].each do |tool|
+    def self.load_tools
+      Dir["#{Tacape::Belt.current_os.tool_folder}/**/*.rb"].each do |tool|
         load tool
       end
+    end
+
+    def update_tools
+      #Should the tools be updated at each command?
+      Thread.new {
+        `cd #{@current_os.tool_folder} && git pull`
+      }
     end
 
     def create_folder_structure
@@ -71,6 +80,8 @@ module Tacape
       end
       unless File.exists? @current_os.tool_folder
         `git clone git@bitbucket.org:lucasmartins/tacape-tools.git #{@current_os.tool_folder}`
+      else
+        update_tools
       end
     end
 
