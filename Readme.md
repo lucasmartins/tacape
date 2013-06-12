@@ -18,7 +18,7 @@ Have fun!
 This repo is used by [Tacape](https://github.com/lucasmartins/tacape)
 
 ### Configuration
-Each Tacape Tool have its own configuration files, they are JSON files inside `~/.tacape/config`.
+Each Tacape Tool have its own configuration file, they are JSON files inside `~/.tacape/config`.
 
 Install
 =======
