@@ -17,6 +17,42 @@ Have fun!
 
 This repo is used by [Tacape](https://github.com/lucasmartins/tacape)
 
+Install
+=======
+
+As any other Gem:
+
+`$ gem install tacape`
+
+Use
+===
+
+Tacape is a CLI tool based on Thor, so just run `tacape` to see the commands available:
+
+```
+$ tacape
+This is Tacape, a command-line tool that gathers years of personal crafting, don't use it too seriously thou.
+Commands:
+  tacape check           # Checks for system dependencies
+  tacape dns             # Tacape Tool for DNS things
+  tacape help [COMMAND]  # Describe available commands or one specific command
+  tacape owngit          # Tacape Tool for managing remote Bare Git repositories through SSH
+  tacape update          # Updates the Tools local repository
+  tacape version         # Shows version
+```
+
+Contribute
+==========
+
+Have any scripts laying around that you could be sharing? 
+
+Just fork [Tacape Tools]((https://github.com/lucasmartins/tacape-tools)), add your tool, and make a pull request.
+
+Support
+=======
+
+This is an opensource project so don't expect premium support, but don't be shy, post any troubles you're having in the [Issues](https://github.com/lucasmartins/tacape/issues) page and we'll do what we can to help.
+
 License
 =======
 
