@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/lucasmartins/tacape.png)](https://codeclimate.com/github/lucasmartins/tacape) ![Build Status](https://secure.travis-ci.org/lucasmartins/tacape.png?branch=master) [![Dependency Status](https://gemnasium.com/lucasmartins/tacape.png)](https://gemnasium.com/lucasmartins/tacape)
+[![Code Climate](https://codeclimate.com/github/lucasmartins/tacape.png)](https://codeclimate.com/github/lucasmartins/tacape) [![Build Status](https://secure.travis-ci.org/lucasmartins/tacape.png?branch=master)](https://travis-ci.org/lucasmartins/tacape) [![Dependency Status](https://gemnasium.com/lucasmartins/tacape.png)](https://gemnasium.com/lucasmartins/tacape)
 
 Tacape
 ======
