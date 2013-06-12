@@ -24,8 +24,10 @@ Install
 =======
 
 As any other Gem:
-
 `$ gem install tacape`
+
+You may have to run a rehash for Rbenv:
+`$ rbenv rehash`
 
 Use
 ===
