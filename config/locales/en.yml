@@ -1,0 +1,11 @@
+en:
+  greeting: "This is Tacape, a command-line tool that gathers years of personal crafting, don't use it too seriously thou."
+  tools:
+    gitrepo:
+      bless:
+        desc: 'Blesses the current folder to a remote repository'
+      list:
+        desc: 'Lists the remote repositories'
+    dns:
+      check_names:
+        desc: 'Checks a list of names for availability through DNS Lookup'

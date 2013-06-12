@@ -1,0 +1,11 @@
+pt-BR:
+  greeting: 'Este é o Tacape, um utilitário para linha de comando que junta anos de hacking pessoal, no entanto, não leve muito a sério.'
+  tools:
+    gitrepo:
+      bless:
+        desc: '"Abençoa" a pasta atual para um repositório remoto'
+      list:
+        desc: 'Lista os repositórios remotos'
+    dns:
+      check_names:
+        desc: 'Verifica a disponibilidade de domínios através de uma lista de nomes utilizando DNS Lookup'
