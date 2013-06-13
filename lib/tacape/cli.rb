@@ -68,7 +68,6 @@ module Tacape
     end
 
     def update_tools
-      #Should the tools be updated at each command?
       Thread.new {
         `cd #{@current_os.tool_folder} && git pull`
       }
@@ -80,8 +79,6 @@ module Tacape
       end
       unless File.exists? @current_os.tool_folder
         `git clone git@bitbucket.org:lucasmartins/tacape-tools.git #{@current_os.tool_folder}`
-      else
-        update_tools
       end
     end
 
