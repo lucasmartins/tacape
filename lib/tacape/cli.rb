@@ -68,9 +68,12 @@ module Tacape
     end
 
     def update_tools
-      Thread.new {
-        `cd #{@current_os.tool_folder} && git pull`
-      }
+      #Thread.new {
+      puts 'Updating Tools repository...'
+      `cd #{@current_os.tool_folder} && git pull`
+      puts 'Installing Tools dependencies...'
+      `cd #{@current_os.tool_folder} && bundle install`
+      #}
     end
 
     def create_folder_structure
@@ -78,7 +81,10 @@ module Tacape
         FileUtils.mkdir_p(@current_os.config_folder)
       end
       unless File.exists? @current_os.tool_folder
-        `git clone git@bitbucket.org:lucasmartins/tacape-tools.git #{@current_os.tool_folder}`
+        puts 'Cloning Tools repository...'
+        `git clone git@github.com:lucasmartins/tacape-tools.git #{@current_os.tool_folder}`
+        puts 'Installing Tools dependencies...'
+        `cd #{@current_os.tool_folder} && bundle install`
       end
     end
 
