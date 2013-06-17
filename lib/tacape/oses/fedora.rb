@@ -22,7 +22,6 @@ module Tacape
 
       def self.identify
         if self.issue_info.include? 'Fedora'
-          puts "Creating folder structure for Fedora"
           return Tacape::Belt.os_families[:linux][:fedora]
         else
           return nil
