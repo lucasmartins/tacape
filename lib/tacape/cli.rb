@@ -7,11 +7,12 @@ module Tacape
     Dir["#{Tacape::Belt.current_os.tool_folder}/**/*.rb"].each do |tool|
       load tool
     end
-
+  
     def initialize(*args)
       super
       @current_os=Tacape::Belt.current_os
       create_folder_structure
+      
       puts I18n.t('greeting')
     end
 
@@ -59,12 +60,6 @@ module Tacape
 
     def color?
       shell.instance_of?(Thor::Shell::Color)
-    end
-
-    def self.load_tools
-      Dir["#{Tacape::Belt.current_os.tool_folder}/**/*.rb"].each do |tool|
-        load tool
-      end
     end
 
     def update_tools

@@ -42,9 +42,11 @@ module Tacape
 
   def self.locale
     I18n.load_path = Dir['config/locales/*.yml']
+    I18n.load_path += Dir["#{Tacape::Belt.current_os.tool_folder}/*/locales/*.yml"]
     I18n.backend.load_translations
     
     @locale ||= Belt.current_os.locale
+    #this switch/case must be inside the Belt
     case @locale
     when 'pt_BR'
       I18n.locale = :"pt-BR"
